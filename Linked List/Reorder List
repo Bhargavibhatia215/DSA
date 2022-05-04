@@ -1,0 +1,47 @@
+class Solution {
+public:
+    ListNode *nthNode(ListNode* current){
+        ListNode *prev;
+        while(current->next!=NULL){
+            prev = current;
+            current = current->next;
+        }
+        prev->next=NULL;
+        return current;
+    }
+    void reorderList(ListNode* head) {
+        ListNode *current = head,*temp,*temp2;
+        if(head->next==NULL){
+            return;
+        }
+        int n=0,i=0;
+        while(current!=NULL){
+            n++;
+            current=current->next;
+        }
+        current = head;
+        if(n%2==0){
+            while(i!=(n/2)-1){
+                temp2 = head;
+                temp = current->next;
+                temp2 = nthNode(temp2);
+                current->next = temp2;
+                temp2->next = temp;
+                i++;
+                current=current->next->next;
+            }
+        }
+        else{
+            while(i!=(n/2)){
+                temp2 = head;
+                temp = current->next;
+                temp2 = nthNode(temp2);
+                current->next = temp2;
+                temp2->next = temp;
+                i++;
+                current=current->next->next;
+            }
+        }
+        
+    }
+};
