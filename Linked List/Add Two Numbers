@@ -1,0 +1,69 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carry=0,num;
+        ListNode *current=l1,*current2=l2;
+        ListNode *temp=new ListNode(0);
+        ListNode *sum = temp;
+        while(current!=NULL && current2!=NULL){
+            num = current->val+current2->val+carry;
+            if(num>9){
+                carry=num/10;
+                temp->next = new ListNode(num%10);
+            }
+            else{
+                carry=0;
+                temp->next = new ListNode(num);
+            }
+            current=current->next;
+            current2=current2->next;
+            temp = temp->next;
+        }
+        if(current!=NULL){
+              while(current!=NULL){
+                    num = current->val+carry;
+                    if(num>9){
+                        carry=num/10;
+                        temp->next = new ListNode(num%10);
+                    }
+                    else{
+                        carry=0;
+                        temp->next = new ListNode(num);
+                    }
+                    current=current->next;
+                    temp = temp->next;
+              }
+        }
+        else if(current2!=NULL){
+            while(current2!=NULL){
+                num = current2->val+carry;
+                if(num>9){
+                    carry=num/10;
+                    temp->next = new ListNode(num%10);
+                }
+                else{
+                    carry=0;
+                    temp->next = new ListNode(num);
+                }
+                current2=current2->next;
+                temp=temp->next;
+            }
+        }
+        if(carry>=1){
+            temp->next = new ListNode(carry);
+        }
+        sum = sum->next;
+        
+        return sum;
+    }
+};
