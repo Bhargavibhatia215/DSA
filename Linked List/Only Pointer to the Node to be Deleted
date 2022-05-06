@@ -1,0 +1,21 @@
+class Solution
+{
+    public:
+    //Function to delete a node without any reference to head pointer.
+    void deleteNode(Node *del)
+    {
+       // Your code here
+       if(del->next == NULL){
+           head = NULL;
+           delete del;
+       }
+       Node *current = del->next;
+       int temp;
+       temp = del->data;
+       del->data = current->data;
+       current->data = temp;
+       del->next = current->next;
+       delete current; 
+    }
+
+};
